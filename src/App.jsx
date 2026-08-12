@@ -137,8 +137,37 @@ padding: "24px",
 boxSizing: "border-box",
 }}
 >
-<style>{  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&display=swap');   @keyframes pop {   0% { transform: scale(1); }   40% { transform: scale(0.92); }   100% { transform: scale(1); }   }   @keyframes bounceIn {   0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }   60% { transform: scale(1.15) rotate(6deg); opacity: 1; }   100% { transform: scale(1) rotate(0deg); }   }   .kc-btn:active { animation: pop 0.15s ease; }   .kc-face { animation: bounceIn 0.35s ease; }  }</style>
+<style>{`
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&display=swap');
 
+  @keyframes pop {
+    0% { transform: scale(1); }
+    40% { transform: scale(0.92); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes bounceIn {
+    0% {
+      transform: scale(0.5) rotate(-10deg);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.15) rotate(6deg);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  .kc-btn:active {
+    animation: pop 0.15s ease;
+  }
+
+  .kc-face {
+    animation: bounceIn 0.35s ease;
+  }
+`}</style>
 <div  
     style={{  
       width: "min(360px, 100%)",  
