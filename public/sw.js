@@ -1,8 +1,10 @@
-const CACHE_NAME = "kids-calculator-v1";
+const CACHE_NAME = "kids-calculator-v2";
 
 const APP_SHELL = [
   "/",
-  "/manifest.json"
+  "/manifest.json",
+  "/icon-192.png",
+  "/icon-512.png"
 ];
 
 self.addEventListener("install", (event) => {
@@ -33,6 +35,12 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
   event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
+    fetch(event.request)
+      .then((response) => {
+        return response;
+      })
+      .catch(() => {
+        return caches.match(event.request);
+      })
   );
 });
