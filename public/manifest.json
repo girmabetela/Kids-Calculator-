@@ -1,1 +1,10 @@
-
+{
+  "name": "Kids Calculator",
+  "short_name": "Kids Calc",
+  "description": "A fun and colorful calculator for kids",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF8EC",
+  "theme_color": "#FF9F6E",
+  "orientation": "portrait"
+}
