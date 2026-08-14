@@ -1,24 +1,20 @@
-const CACHE_NAME = "kids-calculator-v5";
+const CACHE_NAME = "kids-calculator-v6";
 
-const APP_SHELL = [
-  "/",
-  "/manifest.json",
-  "/icon-192.png",
-  "/icon-512.png"
-];
-
-// Install
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(APP_SHELL);
+      return cache.addAll([
+        "/",
+        "/manifest.json",
+        "/icon-192.png",
+        "/icon-512.png"
+      ]);
     })
   );
 
   self.skipWaiting();
 });
 
-// Activate
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
@@ -33,35 +29,29 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Fetch
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
   event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        // Save successful files for offline use
-        const responseClone = response.clone();
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
 
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseClone);
-        });
+      return fetch(event.request).then((networkResponse) => {
+        if (
+          networkResponse.ok &&
+          new URL(event.request.url).origin === self.location.origin
+        ) {
+          const copy = networkResponse.clone();
 
-        return response;
-      })
-      .catch(() => {
-        // Offline → use cached version
-        return caches.match(event.request).then((cachedResponse) => {
-          return (
-            cachedResponse ||
-            new Response("Offline - Please reconnect.", {
-              status: 503,
-              headers: {
-                "Content-Type": "text/plain",
-              },
-            })
-          );
-        });
-      })
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, copy);
+          });
+        }
+
+        return networkResponse;
+      });
+    })
   );
 });
