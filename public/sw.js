@@ -1,4 +1,4 @@
-const CACHE_NAME = "kids-calculator-v3";
+const CACHE_NAME = "kids-calculator-v4";
 
 const APP_SHELL = [
   "/",
@@ -35,17 +35,8 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
   event.respondWith(
-    fetch(event.request)
-      .then((response) => response)
-      .catch(() => caches.match(event.request))
-  );
-});  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        return response;
-      })
-      .catch(() => {
-        return caches.match(event.request);
-      })
+    fetch(event.request).catch(() => {
+      return caches.match(event.request);
+    })
   );
 });
