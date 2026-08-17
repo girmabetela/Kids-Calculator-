@@ -1,0 +1,8 @@
+{
+  "appId": "com.girmabetela.kidscalculator",
+  "appName": "Kids Calculator",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}
