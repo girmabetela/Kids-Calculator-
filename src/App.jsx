@@ -777,5 +777,6 @@ export default function KidsCalculator() {
         )}
       </div>
     </div>
-  );
+    );
 }
+
